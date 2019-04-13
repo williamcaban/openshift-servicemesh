@@ -1,0 +1,33 @@
+---
+- hosts: masters
+  gather_facts: no
+  tasks:
+  - name: Patch OCP master config
+    blockinfile:
+       path: /etc/origin/master/master-config.yaml
+       insertafter: "admissionConfig:"
+       backup: yes
+       block: |
+          # Begin of Patch for OpenShift ServiceMesh
+            pluginConfig:
+              MutatingAdmissionWebhook:
+                configuration:
+                  apiVersion: apiserver.config.k8s.io/v1alpha1
+                  kubeConfigFile: /dev/null
+                  kind: WebhookAdmission
+              ValidatingAdmissionWebhook:
+                configuration:
+                  apiVersion: apiserver.config.k8s.io/v1alpha1
+                  kubeConfigFile: /dev/null
+                  kind: WebhookAdmission
+          # End of Patch for OpenShift ServiceMesh
+    register: result
+    until: result is succeeded
+
+  - when:
+    - result.changed
+    block:
+    - name: Restart OCP Master API and Controllers
+      shell: |
+         /usr/local/bin/master-restart api && /usr/local/bin/master-restart controllers
+

@@ -1,0 +1,13 @@
+---
+- hosts: nodes
+  tasks:
+  - name: Configure sysctl optimization for ES in OCP ServiceMesh
+    copy:
+      dest: "/etc/sysctl.d/99-elasticsearch.conf"
+      content: |
+        vm.max_map_count = 262144
+
+  - name: Apply sysctl update to running sytem
+    shell: |
+       sysctl  vm.max_map_count=262144
+

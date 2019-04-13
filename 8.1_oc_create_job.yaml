@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: test-istio-gw
+spec:
+  parallelism: 1
+  completions: 1
+  template:
+    metadata:
+      name: test-istio-gw
+    spec:
+      containers:
+      - name: test-istio-gw
+        image: registry.access.redhat.com/ubi8-dev-preview/ubi
+        command: ["/bin/sh", "-c"]
+        args:
+          - for i in `seq 1 200` ;
+            do sleep 0.5 ;
+            echo -ne "RUN ($i) HTTP_CODE " ;
+            curl -o /dev/null -s -w '%{http_code}\n'   istio-ingressgateway.istio-system.svc/productpage ;
+            done;
+      #restartPolicy: OnFailure
+      restartPolicy: Never
+      activeDeadlineSeconds: 300
