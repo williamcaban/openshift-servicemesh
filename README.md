@@ -37,7 +37,7 @@ Tested with OpenShift ServiceMesh TechPreview 9
 
 `./6.0_oc_get_pods_istio_system.sh`
 
-Wait until you see the `openshift-ansible-istio-installer-job-xxxxx` goes into `Comleted` state.
+Wait until you see the `openshift-ansible-istio-installer-job-xxxxx` goes into `Completed` state.
 
 Break out of the watch script (CTRL-C) and list the pods in the ServiceMesh project. 
 
