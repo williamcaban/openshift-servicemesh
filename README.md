@@ -16,13 +16,16 @@ Tested with OpenShift ServiceMesh TechPreview 9
 
 `ansible-playbook -i /path/to/inventory_file 1.1_nodes_sysctl_es_update.yaml`
 
+- Create new Project for ServiceMesh Operator
+`./3.0_create_servicemesh_project.sh`
+
 - Deploy ServiceMesh Operator
 
-`./3.0_oc_new_app.sh`
+`./3.1_deploy_servicemesh_operator.sh`
 
 - Validate depoloyment of Operation completed
 
-`4.0_check_istio_operator.sh`
+`./4.0_check_istio_operator.sh`
 
 - Update file with the credentials. Required:
  - OpenShift credentials with admin privileges
@@ -30,30 +33,35 @@ Tested with OpenShift ServiceMesh TechPreview 9
 
 `oc create -f 5.0_oc_create_custom_resource_istio_installation-UPDATE_THIS.yaml`
 
-- Watch for the deployment to complete
+- Watch for the deployment to complete (about 15 minutes)
 
 `./6.0_oc_get_pods_istio_system.sh`
 
+
+Wait until you see the `openshift-ansible-istio-installer-job-...` go into `Comleted` state. Break out of the watch script (CTRL-C) and run it again.
+
 Output must be similar to the following output (names will vary)
+
 ```
 NAME                                          READY     STATUS      RESTARTS   AGE
-3scale-istio-adapter-7df4db48cf-sc98s         1/1       Running     0          13s
-elasticsearch-0                               1/1       Running     0          29s
-grafana-c7f5cc6b6-vg6db                       1/1       Running     0          33s
-istio-citadel-d6d6bb7bb-jgfwt                 1/1       Running     0          1m
-istio-egressgateway-69448cf7dc-b2qj5          1/1       Running     0          1m
-istio-galley-f49696978-q949d                  1/1       Running     0          1m
-istio-ingressgateway-7759647fb6-pfpd5         1/1       Running     0          1m
-istio-pilot-7595bfd696-plffk                  2/2       Running     0          1m
-istio-policy-779454b878-xg7nq                 2/2       Running     2          1m
-istio-sidecar-injector-6655b6ffdb-rn69r       1/1       Running     0          1m
-istio-telemetry-dd9595888-8xjz2               2/2       Running     2          1m
-jaeger-agent-gmk72                            1/1       Running     0          25s
-jaeger-collector-7f644df9f5-dbzcv             1/1       Running     1          25s
-jaeger-query-6f47bf4777-h4wmh                 1/1       Running     1          25s
-kiali-7cc48b6cbb-74gcf                        1/1       Running     0          17s
-openshift-ansible-istio-installer-job-fbtfj   0/1       Completed   0          2m
-prometheus-5f9fd67f8-r6b86                    1/1       Running     0          1m
+elasticsearch-0                               1/1       Running     0          1m
+grafana-74b5796d94-2c2mx                      1/1       Running     0          1m
+istio-citadel-6db56d996-tdvn9                 1/1       Running     0          2m
+istio-egressgateway-699b986dc8-dq8ts          1/1       Running     0          2m
+istio-galley-6b6566bdb9-vlzfn                 1/1       Running     0          2m
+istio-ingressgateway-7f8dd8f46f-tsjrx         1/1       Running     0          2m
+istio-pilot-7d56bc5c47-rw2td                  2/2       Running     0          2m
+istio-policy-7c4f7d6c5b-6hq6p                 2/2       Running     3          2m
+istio-sidecar-injector-6cc5448dbc-qt2gg       1/1       Running     0          2m
+istio-telemetry-9d7b5b6f9-xdnrd               2/2       Running     2          2m
+jaeger-agent-7qw9x                            1/1       Running     0          1m
+jaeger-agent-mdl52                            1/1       Running     0          1m
+jaeger-agent-sqglw                            1/1       Running     0          1m
+jaeger-collector-7f95d99756-k5p9f             1/1       Running     2          1m
+jaeger-query-cfb5ccc6-xl2nh                   1/1       Running     1          1m
+kiali-7557d6cf7c-rz5c6                        1/1       Running     0          33s
+openshift-ansible-istio-installer-job-vjl76   0/1       Completed   0          5m
+prometheus-75b849445c-hf4cf                   1/1       Running     0          2m
 ```
 
 Break out of the watch (CTRL-C) 
