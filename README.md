@@ -77,27 +77,27 @@ Break out of the watch (CTRL-C)
 
 - Identify Kiali dashboard route for your deployment 
 
-`
+```
 oc get route kiali -n istio-system
 
 NAME      HOST/PORT                             PATH      SERVICES   PORT         TERMINATION   WILDCARD
 kiali     kiali-istio-system.apps.example.com             kiali      http-kiali   reencrypt     None
-`
+```
 
 In this example the URL will be `https://kiali-istio-system.apps.example.com`
 
-- Login with the credentials configured in step 5
+- Login with the credentials configured in step 5.0_...
 
 - Select the `Graph` tab in the left pane.
 
 - Select `istio-demo` on the 'Namespace' dropdown on the top of the central pane.
 
-- Click `Display unused nodes` to see the microservices asociated to the BookInfo demo app. (Note: The application must be receiving traffic to see the actual Graph generation)
+- Click `Display Unused Nodes` to see the microservices asociated to the BookInfo demo app. (Note: The application must be receiving traffic to see the actual Graph generation)
 
 - Deploy `Job` to generate traffic towards the `Book Info` app
 
 `oc create -f 8.1_oc_create_job.yaml`
 
-- After 15 seconds the Graph view of the application should be populated
+- After 15 seconds the `Graph` view of the application should be populated
 
 
