@@ -5,11 +5,11 @@
   - name: Patch OCP master config
     blockinfile:
        path: /etc/origin/master/master-config.yaml
-       insertafter: "admissionConfig:"
+       insertafter: "pluginConfig:"
        backup: yes
        block: |
           # Begin of Patch for OpenShift ServiceMesh
-            pluginConfig:
+          # This should be under admissionConfig > pluginConfig:
               MutatingAdmissionWebhook:
                 configuration:
                   apiVersion: apiserver.config.k8s.io/v1alpha1

@@ -4,7 +4,7 @@ metadata:
   name: test-istio-gw
 spec:
   parallelism: 1
-  completions: 1
+  completions: 2
   template:
     metadata:
       name: test-istio-gw

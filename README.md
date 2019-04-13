@@ -33,12 +33,15 @@ Tested with OpenShift ServiceMesh TechPreview 9
 
 `oc create -f 5.0_oc_create_custom_resource_istio_installation-UPDATE_THIS.yaml`
 
-- Watch for the deployment to complete (about 15 minutes)
+- Watch for the deployment to complete (it takes about 10 minutes)
 
 `./6.0_oc_get_pods_istio_system.sh`
 
+Wait until you see the `openshift-ansible-istio-installer-job-xxxxx` goes into `Comleted` state.
 
-Wait until you see the `openshift-ansible-istio-installer-job-...` go into `Comleted` state. Break out of the watch script (CTRL-C) and run it again.
+Break out of the watch script (CTRL-C) and list the pods in the ServiceMesh project. 
+
+`oc get pods -n istio-system`
 
 Output must be similar to the following output (names will vary)
 
@@ -72,11 +75,29 @@ Break out of the watch (CTRL-C)
 
 `7.0_bookinfo_app.sh`
 
-- Visit the Kiali route for your deployment and select the `istio-demo` project and select the graph view.
-- Deploy `Job` to generate traffic to the `Book Info` app
+- Identify Kiali dashboard route for your deployment 
+
+`
+oc get route kiali -n istio-system
+
+NAME      HOST/PORT                             PATH      SERVICES   PORT         TERMINATION   WILDCARD
+kiali     kiali-istio-system.apps.example.com             kiali      http-kiali   reencrypt     None
+`
+
+In this example the URL will be `https://kiali-istio-system.apps.example.com`
+
+- Login with the credentials configured in step 5
+
+- Select the `Graph` tab in the left pane.
+
+- Select `istio-demo` on the 'Namespace' dropdown on the top of the central pane.
+
+- Click `Display unused nodes` to see the microservices asociated to the BookInfo demo app. (Note: The application must be receiving traffic to see the actual Graph generation)
+
+- Deploy `Job` to generate traffic towards the `Book Info` app
 
 `oc create -f 8.1_oc_create_job.yaml`
 
-- After 15 seconds the graph view of the application should be populated
+- After 15 seconds the Graph view of the application should be populated
 
 
