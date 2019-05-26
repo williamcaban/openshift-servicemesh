@@ -12,3 +12,4 @@ oc apply -n ${DEMOPROJECT} -f https://raw.githubusercontent.com/Maistra/bookinfo
 
 
 export GATEWAY_URL=$(oc get route -n istio-system istio-ingressgateway -o jsonpath='{.spec.host}')
+echo "The ServiceMesh Demo is available at: http://${GATEWAY_URL}/productpage"

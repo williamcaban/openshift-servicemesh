@@ -11,10 +11,10 @@ spec:
     spec:
       containers:
       - name: test-istio-gw
-        image: registry.access.redhat.com/ubi8-dev-preview/ubi
+        image: registry.access.redhat.com/ubi8/ubi
         command: ["/bin/sh", "-c"]
         args:
-          - for i in `seq 1 200` ;
+          - for i in `seq 1 20000` ;
             do sleep 0.5 ;
             echo -ne "RUN ($i) HTTP_CODE " ;
             curl -o /dev/null -s -w '%{http_code}\n'   istio-ingressgateway.istio-system.svc/productpage ;
