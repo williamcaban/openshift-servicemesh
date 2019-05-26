@@ -38,7 +38,9 @@ Tested with OpenShift ServiceMesh TechPreview 10 (Maistra 0.10)
 
 `./6.0_oc_get_pods_istio_system.sh`
 
-Wait until you see the all the Pods remain in the `Running` state.
+Wait until you see the all the Pods remain in the `Running` state. It may take from 10 to 15 minutes.
+
+**NOTE:** It is normal to see some Pods going through `CrashLoops` or in `Error` state during the initialization. Once everything is stable, all the Pods should be in `Running` state.
 
 Break out of the watch script (CTRL-C) and list the pods in the ServiceMesh project. 
 
@@ -47,32 +49,33 @@ Break out of the watch script (CTRL-C) and list the pods in the ServiceMesh proj
 Output must be similar to the following output (names will vary)
 
 ```
-NAME                                          READY     STATUS      RESTARTS   AGE
-3scale-istio-adapter-7df4db48cf-sc98s         1/1       Running     0          13s
-elasticsearch-0                               1/1       Running     0          29s
-grafana-c7f5cc6b6-vg6db                       1/1       Running     0          33s
-istio-citadel-d6d6bb7bb-jgfwt                 1/1       Running     0          1m
-istio-egressgateway-69448cf7dc-b2qj5          1/1       Running     0          1m
-istio-galley-f49696978-q949d                  1/1       Running     0          1m
-istio-ingressgateway-7759647fb6-pfpd5         1/1       Running     0          1m
-istio-pilot-7595bfd696-plffk                  2/2       Running     0          1m
-istio-policy-779454b878-xg7nq                 2/2       Running     2          1m
-istio-sidecar-injector-6655b6ffdb-rn69r       1/1       Running     0          1m
-istio-telemetry-dd9595888-8xjz2               2/2       Running     2          1m
-jaeger-agent-gmk72                            1/1       Running     0          25s
-jaeger-collector-7f644df9f5-dbzcv             1/1       Running     1          25s
-jaeger-query-6f47bf4777-h4wmh                 1/1       Running     1          25s
-kiali-7cc48b6cbb-74gcf                        1/1       Running     0          17s
-prometheus-5f9fd67f8-r6b86                    1/1       Running     0          1m
+NAME                                      READY     STATUS    RESTARTS   AGE
+elasticsearch-0                           1/1       Running   0          5m
+grafana-6c5dfdf5bd-m74fp                  1/1       Running   0          5m
+ior-679b475484-hz8wz                      1/1       Running   0          6m
+istio-citadel-66cf447cbd-csmbg            1/1       Running   0          10m
+istio-egressgateway-69b65dddf5-smptv      1/1       Running   0          6m
+istio-galley-5dbd58568d-2r8sm             1/1       Running   0          9m
+istio-ingressgateway-b688c9d9b-7g67v      1/1       Running   0          5m
+istio-ingressgateway-b688c9d9b-7r7w4      1/1       Running   0          6m
+istio-pilot-79668d4bf6-j6772              2/2       Running   0          7m
+istio-policy-5f45fcf95f-xtd6b             2/2       Running   0          8m
+istio-sidecar-injector-7c44bcbbcd-6swzx   1/1       Running   0          6m
+istio-telemetry-7fcd854d6b-pljck          2/2       Running   0          8m
+jaeger-agent-2v96r                        1/1       Running   0          5m
+jaeger-agent-sxc58                        1/1       Running   0          5m
+jaeger-agent-zj5jl                        1/1       Running   0          5m
+jaeger-collector-576b66f88c-24gnf         1/1       Running   4          5m
+jaeger-query-7549b87c55-4fhjz             1/1       Running   4          5m
+kiali-7475849854-nr2b2                    1/1       Running   0          2m
+prometheus-5dfcf8dcf9-6lrqq               1/1       Running   0          8m
 ```
-
-Break out of the watch (CTRL-C) 
 
 ## Testing the deployment
 
 - Deploy Demo BookInfo App
 
-`7.0_bookinfo_app.sh`
+`./7.0_bookinfo_app.sh`
 
 - Identify Kiali dashboard route for your deployment 
 
