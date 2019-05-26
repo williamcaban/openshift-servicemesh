@@ -17,6 +17,7 @@ Tested with OpenShift ServiceMesh TechPreview 10 (Maistra 0.10)
 `ansible-playbook -i /path/to/inventory_file 1.1_nodes_sysctl_es_update.yaml`
 
 - Create new Project for ServiceMesh Operator
+
 `./2.0_create_servicemesh_project.sh`
 
 - Deploy ServiceMesh Operator
