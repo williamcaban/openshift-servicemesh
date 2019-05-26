@@ -19,6 +19,6 @@ spec:
             echo -ne "RUN ($i) HTTP_CODE " ;
             curl -o /dev/null -s -w '%{http_code}\n'   istio-ingressgateway.istio-system.svc/productpage ;
             done;
-      #restartPolicy: OnFailure
-      restartPolicy: Never
-      activeDeadlineSeconds: 300
+      restartPolicy: OnFailure
+      #restartPolicy: Never
+      activeDeadlineSeconds: 900
